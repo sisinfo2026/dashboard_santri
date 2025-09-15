@@ -2,313 +2,365 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard Santri</title>
+  <title>Dashboard Santri - Login</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6f9;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      max-width: 400px;
+      width: 90%;
       text-align: center;
     }
-    .header {
-      background: linear-gradient(90deg, #0d6efd, #6610f2);
-      color: white;
-      padding: 20px;
-      font-size: 24px;
+    
+    .logo {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    
+    .title {
+      font-size: 28px;
       font-weight: bold;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      color: #333;
+      margin-bottom: 10px;
     }
-    .auth-section {
-      margin: 20px;
-      padding: 20px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      max-width: 400px;
-      margin: 20px auto;
+    
+    .subtitle {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 30px;
     }
-    .auth-section input {
+    
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+    }
+    
+    .input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .input-container input {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin: 8px 0;
+      padding: 12px 16px;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
       box-sizing: border-box;
     }
-    .auth-section button {
-      width: 100%;
-      padding: 12px;
-      background: #0d6efd;
+    
+    .input-container input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    .search-btn {
+      position: absolute;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      background: #667eea;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    
+    .search-btn:hover {
+      background: #5a67d8;
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
       font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
       margin-top: 10px;
     }
-    .auth-section button:hover {
-      background: #0b5ed7;
+    
+    .login-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
     }
-    .auth-section button:disabled {
+    
+    .login-btn:disabled {
       background: #6c757d;
       cursor: not-allowed;
+      transform: none;
     }
-    #profile {
-      margin: 20px;
-      padding: 15px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      display: inline-block;
-      min-width: 280px;
-      display: none;
-    }
-	
-	#openPageBtn {
-    width: 20px;
-    height: 20px;
-    font-size: 12px;   /* biar emoji tidak terlalu besar */
-    padding: 0;        /* hilangkan padding default */
-    line-height: 20px; /* agar konten pas di tengah */
-    text-align: center;
-  }
-	
-    .card {
-      display: inline-block;
-      background: #fff;
-      padding: 20px;
-      margin: 10px;
-      border-radius: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      width: 200px;
-      height: 120px;
-      vertical-align: top;
-    }
-    .card span {
-      font-size: 18px;
-      color: #333;
-      font-weight: bold;
-      display: block;
-      margin-top: 8px;
-    }
-    .error {
-      color: #dc3545;
-    }
-    .success {
-      color: #198754;
-    }
-    .warning {
-      color: #fd7e14;
-    }
-    .cards-container {
-      display: none;
-    }
-    .logout-btn {
-      margin: 10px;
-      padding: 8px 16px;
-      background: #dc3545;
-      color: white;
-      border: none;
+    
+    .status-message {
+      margin-top: 15px;
+      padding: 12px;
       border-radius: 6px;
-      cursor: pointer;
+      font-size: 14px;
       display: none;
     }
-    .logout-btn:hover {
-      background: #c82333;
+    
+    .status-message.error {
+      background: #ffe6e6;
+      color: #dc3545;
+      border-left: 4px solid #dc3545;
+      display: block;
     }
-    .session-info {
+    
+    .status-message.success {
+      background: #e6ffe6;
+      color: #198754;
+      border-left: 4px solid #198754;
+      display: block;
+    }
+    
+    .status-message.loading {
       background: #e7f3ff;
+      color: #0066cc;
+      border-left: 4px solid #0066cc;
+      display: block;
+    }
+    
+    .session-info {
+      background: #fff3cd;
+      color: #856404;
       padding: 10px;
       border-radius: 6px;
-      margin: 10px 0;
       font-size: 12px;
-      color: #0066cc;
+      margin-top: 15px;
       display: none;
     }
-    .navigation {
-      margin: 20px 0;
+    
+    .navigation-preview {
+      margin-top: 25px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
       display: none;
     }
+    
+    .nav-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    
     .nav-btn {
       padding: 10px 20px;
-      margin: 0 10px;
-      background: #6610f2;
-      color: white;
       border: none;
       border-radius: 6px;
+      font-size: 14px;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
+      transition: all 0.3s ease;
+      color: white;
     }
-    .nav-btn:hover {
-      background: #5a0fbf;
-    }
-    .nav-btn.active {
+    
+    .nav-btn.data-santri {
       background: #0d6efd;
     }
     
-    /* Style untuk iframe container */
-    .iframe-container {
-      display: none;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      max-width: 95%;
+    .nav-btn.tunggakan {
+      background: #fd7e14;
     }
     
-    .iframe-header {
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      border-left: 4px solid #fd7e14;
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     
-    .iframe-content {
-      min-height: 400px;
-      border: 2px solid #e9ecef;
-      border-radius: 8px;
-      background: #fff;
-    }
-    
-    #tunggakanIframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-      border-radius: 6px;
-    }
-    
-    .close-iframe {
-      float: right;
-      background: #dc3545;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 5px 10px;
-      cursor: pointer;
+    .logout-info {
+      margin-top: 15px;
       font-size: 12px;
-    }
-    
-    .close-iframe:hover {
-      background: #c82333;
-    }
-    
-    .tunggakan-loading {
-      text-align: center;
-      padding: 50px;
       color: #666;
+    }
+    
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px 20px;
+      }
+      
+      .nav-buttons {
+        flex-direction: column;
+      }
+      
+      .nav-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    🔒 Dashboard Santri - Secure
-    <button class="logout-btn" id="logoutBtn" onclick="logout()">Logout</button>
-  </div>
-  
-  <!-- FORM AUTENTIKASI -->
-  <div class="auth-section" id="authSection">
-    <h3>🔐 Login Required</h3>
-    <p style="color: #666; font-size: 14px;">Masukkan ID Santri dan Password untuk mengakses dashboard</p>
+  <div class="login-container">
+    <div class="logo">🔒</div>
+    <div class="title">Dashboard Santri</div>
+    <div class="subtitle">Sistem Login Secure dengan Session 1 Jam</div>
     
-    <label for="loginId">ID Santri (9 digit)</label><br>
-    <div class="input-with-button">
-      <button type="button" id="openPageBtn" title="Cari ID Santri">🔗</button>
-      <input type="text" id="loginId" placeholder="Contoh: 101071447" maxlength="9" pattern="\d{9}" />
-    </div>
-    
-    <label for="loginPassword">Password (9 digit)</label>
-    <input type="password" id="loginPassword" placeholder="9 digit password" maxlength="9" pattern="\d{9}">
-    
-    <button onclick="authenticateUser()" id="loginBtn">🔑 Login ke Dashboard</button>
-    
-    <div class="session-info" id="sessionInfo">
-      Session akan expired dalam <span id="sessionTimer">15:00</span> menit
-    </div>
-    
-    <div id="authStatus" style="margin-top:10px;"></div>
-  </div>
-  
-  <!-- NAVIGATION -->
-  <div class="navigation" id="navigation">
-    <button class="nav-btn active" id="dataSantriBtn" onclick="showDataSantri()">📊 Data Santri</button>
-    <button class="nav-btn" id="tunggakanBtn" onclick="showTunggakan()">💰 Lihat Tunggakan</button>
-  </div>
-  
-  <!-- DASHBOARD CONTENT (Hidden until authenticated) -->
-  <div id="dashboardContent" style="display: none;">
-    <div id="profile">
-      <p><b id="status">Memuat data...</b></p>
-      <p>ID Santri: <span id="idSantri">-</span></p>
-      <p>Nama: <span id="nama">-</span></p>
-    </div>
-    
-    <div class="cards-container" id="cardsContainer">
-      <div class="card">
-        KELAS
-        <span id="kelas">-</span>
+    <!-- Login Form -->
+    <div id="loginForm">
+      <div class="form-group">
+        <label for="loginId">ID Santri (9 digit)</label>
+        <div class="input-container">
+          <input type="text" id="loginId" placeholder="Contoh: 101071447" maxlength="9" pattern="\d{9}" />
+          <button type="button" class="search-btn" id="searchBtn" title="Cari ID Santri">🔗</button>
+        </div>
       </div>
-      <div class="card">
-        JENIS KELAMIN
-        <span id="jk">-</span>
+      
+      <div class="form-group">
+        <label for="loginPassword">Password (9 digit)</label>
+        <input type="password" id="loginPassword" placeholder="9 digit password" maxlength="9" pattern="\d{9}">
       </div>
-      <div class="card">
-        NAMA AYAH
-        <span id="ayah">-</span>
+      
+      <button onclick="authenticateUser()" id="loginBtn" class="login-btn">
+        🔑 Login ke Dashboard
+      </button>
+      
+      <div id="statusMessage" class="status-message"></div>
+      <div id="sessionInfo" class="session-info">
+        Session aktif selama 1 jam setelah login berhasil
       </div>
-      <div class="card">
-        PASSWORD
-        <span id="password">-</span>
-		<br> (Untuk mengubah password hubungi admin)
-	  </div>
     </div>
-  </div>
-  
-  <!-- TUNGGAKAN IFRAME CONTAINER -->
-  <div class="iframe-container" id="tunggakanContainer">
-    <div class="iframe-header">
-      <button class="close-iframe" onclick="closeTunggakan()">✕ Tutup</button>
-      <h3 style="margin: 0; color: #fd7e14;">💰 Data Tunggakan Santri</h3>
-      <p style="margin: 5px 0 0 0; font-size: 14px; color: #666;">
-        Menampilkan informasi tunggakan untuk ID: <span id="tunggakanSantriId">-</span>
-      </p>
-    </div>
-    <div class="iframe-content">
-      <div class="tunggakan-loading" id="tunggakanLoading">
-        🔄 Memuat data tunggakan...
+    
+    <!-- Navigation Dashboard (Hidden until authenticated) -->
+    <div id="dashboardNav" class="navigation-preview">
+      <div class="nav-title">Dashboard Menu</div>
+      <div class="nav-buttons">
+        <a href="data_santri.html" class="nav-btn data-santri" id="dataSantriLink">
+          📊 Data Santri
+        </a>
+        <a href="tunggakan.html" class="nav-btn tunggakan" id="tunggakanLink">
+          💰 Lihat Tunggakan
+        </a>
       </div>
-      <iframe id="tunggakanIframe" style="display:none;"></iframe>
+      <div class="logout-info">
+        Session akan berakhir dalam <span id="sessionTimer">60:00</span> menit
+        <br><button onclick="logout()" style="margin-top: 10px; padding: 5px 10px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
+      </div>
     </div>
   </div>
   
   <script>
     // =============================================================================
-    // KONFIGURASI SCRIPT URLs - GANTI DENGAN SCRIPT ID ANDA
+    // KONFIGURASI
     // =============================================================================
-    
-    // Script ID untuk autentikasi dan data santri (yang sudah ada)
     const SCRIPT_ID_SANTRI = "AKfycbx-4nGLPvNXQnExKrKGwLwp0tnZFchw0wUP5DY2BFJ8yYajTNA3rCW4YatBP1_TQopIVQ";
+    const SESSION_DURATION = 60 * 60 * 1000; // 1 jam dalam milliseconds
+    const SEARCH_URL = "https://script.google.com/macros/s/AKfycbwMgBavCx9buIYDfcH-TbUgRBneAw6HvkWLzbvqEwXc8b6_2Ei_qqJ_RSyXrmxOcSA9/exec";
     
-    // Script ID untuk data tunggakan (yang baru - sudah di-deploy)
-    const SCRIPT_ID_TUNGGAKAN = "AKfycbyir6-WyUeMFbBkr3YiuCnLcEw2X49BZ380jaMj0oNn0q5t6SLfCbt1XJSzXjMXLmGK2Q";
-	
-   
     // =============================================================================
     // SESSION MANAGEMENT
     // =============================================================================
     let sessionTimer = null;
-    let sessionTimeLeft = 15 * 60; // 15 menit dalam detik
-    let authenticatedUser = null;
+    let sessionTimeLeft = 60 * 60; // 1 jam dalam detik
     
     // Check existing session on page load
     window.addEventListener('load', function() {
-      console.log("Dashboard loaded - please login");
+      checkExistingSession();
     });
+    
+    function checkExistingSession() {
+      const sessionData = localStorage.getItem('santriSession');
+      
+      if (sessionData) {
+        try {
+          const session = JSON.parse(sessionData);
+          const currentTime = new Date().getTime();
+          const sessionExpiry = new Date(session.expiry).getTime();
+          
+          if (currentTime < sessionExpiry) {
+            // Session masih valid
+            console.log("Session found and valid");
+            const timeLeft = Math.floor((sessionExpiry - currentTime) / 1000);
+            sessionTimeLeft = timeLeft;
+            showDashboardNavigation(session.userData);
+            startSessionTimer();
+            return;
+          } else {
+            // Session expired
+            localStorage.removeItem('santriSession');
+          }
+        } catch (error) {
+          console.error('Error parsing session:', error);
+          localStorage.removeItem('santriSession');
+        }
+      }
+      
+      console.log("No valid session found - please login");
+    }
+    
+    function createSession(userData) {
+      const expiry = new Date(Date.now() + SESSION_DURATION);
+      const sessionData = {
+        userData: userData,
+        loginTime: new Date().toISOString(),
+        expiry: expiry.toISOString(),
+        id: userData.id_santri
+      };
+      
+      localStorage.setItem('santriSession', JSON.stringify(sessionData));
+      console.log("Session created, expires at:", expiry);
+    }
+    
+    function startSessionTimer() {
+      const timerElement = document.getElementById('sessionTimer');
+      
+      sessionTimer = setInterval(() => {
+        sessionTimeLeft--;
+        
+        const hours = Math.floor(sessionTimeLeft / 3600);
+        const minutes = Math.floor((sessionTimeLeft % 3600) / 60);
+        const seconds = sessionTimeLeft % 60;
+        
+        const timeString = `${hours > 0 ? hours + ':' : ''}${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (timerElement) {
+          timerElement.textContent = timeString;
+        }
+        
+        if (sessionTimeLeft <= 0) {
+          logout();
+          showMessage("Session expired! Silakan login ulang untuk keamanan data.", "error");
+        }
+      }, 1000);
+    }
     
     // =============================================================================
     // AUTHENTICATION FUNCTIONS
@@ -317,31 +369,31 @@
     async function authenticateUser() {
       const loginId = document.getElementById("loginId").value.trim();
       const loginPassword = document.getElementById("loginPassword").value.trim();
-      const authStatus = document.getElementById("authStatus");
       const loginBtn = document.getElementById("loginBtn");
       
       // Reset status
-      authStatus.innerHTML = "";
+      hideMessage();
       loginBtn.disabled = true;
       loginBtn.textContent = "🔄 Memverifikasi...";
       
       // Validasi input
       if (!loginId || !loginPassword) {
-        authStatus.innerHTML = '<span class="error">⚠️ ID dan Password harus diisi!</span>';
+        showMessage("⚠️ ID dan Password harus diisi!", "error");
         resetLoginBtn();
         return;
       }
       
       if (!/^\d{9}$/.test(loginId) || !/^\d{9}$/.test(loginPassword)) {
-        authStatus.innerHTML = '<span class="error">⚠️ ID dan Password harus 9 digit angka!</span>';
+        showMessage("⚠️ ID dan Password harus 9 digit angka!", "error");
         resetLoginBtn();
         return;
       }
       
       try {
-        // Call Google Apps Script untuk autentikasi (Script 1)
+        showMessage("🔄 Menghubungi server...", "loading");
+        
         const gasUrl = `https://script.google.com/macros/s/${SCRIPT_ID_SANTRI}/exec?id=${encodeURIComponent(loginId)}`;
-        console.log("Authenticating with Script 1:", gasUrl);
+        console.log("Authenticating with:", gasUrl);
         
         const response = await fetch(gasUrl, {
           method: 'GET',
@@ -361,346 +413,79 @@
           // Verifikasi password
           if (result.data.password === loginPassword) {
             // Autentikasi berhasil
-            authenticatedUser = {
-              id: loginId,
-              data: result.data,
-              loginTime: new Date()
-            };
+            showMessage("✅ Login berhasil! Memuat dashboard...", "success");
             
-            authStatus.innerHTML = '<span class="success">✅ Login berhasil! Memuat dashboard...</span>';
+            // Create session
+            createSession(result.data);
             
-            // Tampilkan dashboard
+            // Reset session timer
+            sessionTimeLeft = 60 * 60;
+            
+            // Show dashboard navigation after delay
             setTimeout(() => {
-              showDashboard(result.data);
+              showDashboardNavigation(result.data);
               startSessionTimer();
-            }, 1000);
+            }, 1500);
             
           } else {
-            authStatus.innerHTML = '<span class="error">❌ Password salah!</span>';
+            showMessage("❌ Password salah!", "error");
             resetLoginBtn();
           }
         } else {
-          authStatus.innerHTML = '<span class="error">❌ ID Santri tidak ditemukan!</span>';
+          showMessage("❌ ID Santri tidak ditemukan!", "error");
           resetLoginBtn();
         }
         
       } catch (error) {
         console.error('Auth error:', error);
-        authStatus.innerHTML = '<span class="error">⚠️ Error koneksi: ' + error.message + '</span>';
+        showMessage(`⚠️ Error koneksi: ${error.message}`, "error");
         resetLoginBtn();
       }
     }
     
     // =============================================================================
-    // DASHBOARD FUNCTIONS
+    // UI FUNCTIONS
     // =============================================================================
     
-    function showDashboard(userData) {
-      // Sembunyikan form login
-      document.getElementById("authSection").style.display = "none";
+    function showDashboardNavigation(userData) {
+      // Hide login form
+      document.getElementById("loginForm").style.display = "none";
       
-      // Tampilkan dashboard
-      document.getElementById("dashboardContent").style.display = "block";
-      document.getElementById("profile").style.display = "inline-block";
-      document.getElementById("cardsContainer").style.display = "block";
-      document.getElementById("logoutBtn").style.display = "inline-block";
-      document.getElementById("navigation").style.display = "block";
+      // Show dashboard navigation
+      document.getElementById("dashboardNav").style.display = "block";
       
-      // Populate data
-      document.getElementById("status").innerHTML = '<span class="success">✅ Data ditemukan</span>';
-      document.getElementById("idSantri").innerText = userData.id_santri || "-";
-      document.getElementById("nama").innerText = userData.nama || "-";
-      document.getElementById("kelas").innerText = userData.kelas_sekarang || "-";
-      document.getElementById("jk").innerText = userData.gender || "-";
-      document.getElementById("ayah").innerText = userData.nama_ayah || "-";
-      document.getElementById("password").innerText = userData.password || "-";
+      // Update page title
+      document.querySelector('.title').textContent = `Dashboard - ${userData.nama}`;
+      document.querySelector('.subtitle').textContent = `ID: ${userData.id_santri} | Session aktif`;
+      
+      // Update navigation links with session data
+      updateNavigationLinks(userData);
     }
     
-    function showDataSantri() {
-      // Update navigation buttons
-      document.getElementById("dataSantriBtn").classList.add("active");
-      document.getElementById("tunggakanBtn").classList.remove("active");
+    function updateNavigationLinks(userData) {
+      const dataSantriLink = document.getElementById("dataSantriLink");
+      const tunggakanLink = document.getElementById("tunggakanLink");
       
-      // Show data santri, hide tunggakan
-      document.getElementById("dashboardContent").style.display = "block";
-      document.getElementById("tunggakanContainer").style.display = "none";
+      // Add session parameter to links
+      const sessionParam = `?session=${encodeURIComponent(btoa(JSON.stringify({
+        id: userData.id_santri,
+        nama: userData.nama,
+        timestamp: Date.now()
+      })))}`;
+      
+      dataSantriLink.href = `data_santri.html${sessionParam}`;
+      tunggakanLink.href = `tunggakan.html${sessionParam}`;
     }
     
-    function showTunggakan() {
-      if (!authenticatedUser) {
-        alert("Silakan login terlebih dahulu!");
-        return;
-      }
-      
-      // Update navigation buttons
-      document.getElementById("dataSantriBtn").classList.remove("active");
-      document.getElementById("tunggakanBtn").classList.add("active");
-      
-      // Hide data santri, show tunggakan
-      document.getElementById("dashboardContent").style.display = "none";
-      document.getElementById("tunggakanContainer").style.display = "block";
-      
-      // Update header dengan ID santri
-      document.getElementById("tunggakanSantriId").textContent = authenticatedUser.id;
-      
-      // Load tunggakan data dalam iframe
-      loadTunggakanData();
+    function showMessage(text, type) {
+      const messageEl = document.getElementById("statusMessage");
+      messageEl.textContent = text;
+      messageEl.className = `status-message ${type}`;
     }
     
-    // =============================================================================
-    // TUNGGAKAN FUNCTIONS
-    // =============================================================================
-    
-    function loadTunggakanData() {
-      const iframe = document.getElementById("tunggakanIframe");
-      const loading = document.getElementById("tunggakanLoading");
-      
-      // Show loading
-      loading.style.display = "block";
-      iframe.style.display = "none";
-      
-      // Generate HTML content for tunggakan
-      generateTunggakanHTML();
-    }
-    
-    async function generateTunggakanHTML() {
-      try {
-        // Call Google Apps Script untuk data tunggakan (Script 2)
-        const tunggakanUrl = `https://script.google.com/macros/s/${SCRIPT_ID_TUNGGAKAN}/exec?id=${encodeURIComponent(authenticatedUser .id)}`;
-        console.log("Fetching tunggakan with Script 2:", tunggakanUrl);
-        
-        const response = await fetch(tunggakanUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          }
-        });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const result = await response.json();
-        console.log("Tunggakan response:", result);
-        
-        let htmlContent = `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="UTF-8">
-            <title>Data Tunggakan</title>
-            <style>
-              body {
-                font-family: Arial, sans-serif;
-                margin: 20px;
-                background: #f8f9fa;
-              }
-              .tunggakan-header {
-                background: linear-gradient(90deg, #fd7e14, #ffc107);
-                color: white;
-                padding: 20px;
-                border-radius: 10px;
-                margin-bottom: 20px;
-                text-align: center;
-              }
-              .tunggakan-card {
-                background: white;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                margin-bottom: 15px;
-              }
-              .total-tunggakan {
-                font-size: 24px;
-                font-weight: bold;
-                color: #dc3545;
-                text-align: center;
-                padding: 15px;
-                background: #fff3f3;
-                border-radius: 8px;
-                border-left: 4px solid #dc3545;
-              }
-              .detail-tunggakan {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 15px;
-                margin-top: 20px;
-              }
-              .detail-item {
-                background: #f8f9fa;
-                padding: 15px;
-                border-radius: 8px;
-                border-left: 3px solid #6610f2;
-              }
-              .detail-item .label {
-                font-weight: bold;
-                color: #495057;
-                font-size: 14px;
-                margin-bottom: 5px;
-              }
-              .detail-item .value {
-                font-size: 18px;
-                color: #dc3545;
-                font-weight: bold;
-              }
-              .no-tunggakan {
-                text-align: center;
-                padding: 40px;
-                color: #198754;
-                font-size: 18px;
-              }
-              .error-message {
-                text-align: center;
-                padding: 40px;
-                color: #dc3545;
-                font-size: 16px;
-              }
-            </style>
-          </head>
-          <body>
-            <div class="tunggakan-header">
-              <h2>💰 Data Tunggakan Santri</h2>
-              <p>ID Santri: ${authenticatedUser.id} | Nama: ${authenticatedUser.data.nama}</p>
-            </div>
-        `;
-        
-        if (result.success && result.data) {
-          const tunggakan = result.data;
-          const totalTunggakan = parseInt(tunggakan.total_tunggakan) || 0;
-          
-          if (totalTunggakan > 0) {
-            htmlContent += `
-              <div class="tunggakan-card">
-                <div class="total-tunggakan">
-                  Total Tunggakan: Rp ${formatCurrency(totalTunggakan)}
-                </div>
-                
-                <div class="detail-tunggakan">
-                  <div class="detail-item">
-                    <div class="label">Sarana Prasarana</div>
-                    <div class="value">Rp ${formatCurrency(parseInt(tunggakan.sarpras) || 0)}</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="label">BOP (Biaya Operasional)</div>
-                    <div class="value">Rp ${formatCurrency(parseInt(tunggakan.bop) || 0)}</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="label">Kegiatan</div>
-                    <div class="value">Rp ${formatCurrency(parseInt(tunggakan.kegiatan) || 0)}</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="label">Perlengkapan</div>
-                    <div class="value">Rp ${formatCurrency(parseInt(tunggakan.perlengkapan) || 0)}</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="tunggakan-card">
-                <h4 style="color: #495057; margin-top: 0;">📋 Informasi Tambahan</h4>
-                <p style="color: #666; font-size: 14px;">
-                  • Silakan hubungi bagian keuangan untuk informasi lebih detail<br>
-                  • Pembayaran dapat dilakukan melalui transfer bank atau langsung ke kantor<br>
-                  • Data ini insyaallah diperbarui secara berkala
-                </p>
-              </div>
-            `;
-          } else {
-            htmlContent += `
-              <div class="tunggakan-card">
-                <div class="no-tunggakan">
-                  ✅ Alhamdulillah, tidak ada tunggakan!<br>
-                  <small style="color: #666;">Semua pembayaran sudah lunas</small>
-                </div>
-              </div>
-            `;
-          }
-        } else {
-          htmlContent += `
-            <div class="tunggakan-card">
-              <div class="error-message">
-                ⚠️ Tidak dapat memuat data tunggakan<br>
-                <small>${result.error || 'Silakan coba lagi atau hubungi administrator'}</small>
-              </div>
-            </div>
-          `;
-        }
-        
-        htmlContent += `
-            <script>
-              function formatCurrency(amount) {
-                return new Intl.NumberFormat('id-ID').format(amount);
-              }
-            <\/script>
-          </body>
-          </html>
-        `;
-        
-        // Set iframe content
-        const iframe = document.getElementById("tunggakanIframe");
-        iframe.onload = function() {
-          document.getElementById("tunggakanLoading").style.display = "none";
-          iframe.style.display = "block";
-        };
-        
-        iframe.srcdoc = htmlContent;
-        
-      } catch (error) {
-        console.error('Error loading tunggakan:', error);
-        
-        // Show error in iframe
-        const errorHtml = `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="UTF-8">
-            <style>
-              body { 
-                font-family: Arial, sans-serif; 
-                padding: 40px; 
-                text-align: center; 
-                background: #f8f9fa;
-              }
-              .error { 
-                color: #dc3545; 
-                font-size: 16px; 
-                background: white;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-              }
-            </style>
-          </head>
-          <body>
-            <div class="error">
-              ⚠️ Error memuat data tunggakan<br>
-              <small>${error.message}</small><br><br>
-              <small style="color: #666;">
-                Pastikan Script ID tunggakan sudah benar dan script sudah di-deploy
-              </small>
-            </div>
-          </body>
-          </html>
-        `;
-        
-        const iframe = document.getElementById("tunggakanIframe");
-        iframe.srcdoc = errorHtml;
-        iframe.onload = function() {
-          document.getElementById("tunggakanLoading").style.display = "none";
-          iframe.style.display = "block";
-        };
-      }
-    }
-    
-    // =============================================================================
-    // UTILITY FUNCTIONS
-    // =============================================================================
-    
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('id-ID').format(amount);
-    }
-    
-    function closeTunggakan() {
-      showDataSantri();
+    function hideMessage() {
+      const messageEl = document.getElementById("statusMessage");
+      messageEl.className = "status-message";
     }
     
     function resetLoginBtn() {
@@ -709,52 +494,31 @@
       loginBtn.textContent = "🔑 Login ke Dashboard";
     }
     
-    function startSessionTimer() {
-      document.getElementById("sessionInfo").style.display = "block";
-      
-      sessionTimer = setInterval(() => {
-        sessionTimeLeft--;
-        
-        const minutes = Math.floor(sessionTimeLeft / 60);
-        const seconds = sessionTimeLeft % 60;
-        const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-        
-        document.getElementById("sessionTimer").textContent = timeString;
-        
-        if (sessionTimeLeft <= 0) {
-          logout();
-          alert("Session expired! Silakan login ulang untuk keamanan data.");
-        }
-      }, 1000);
-    }
-    
     function logout() {
       // Clear session
+      localStorage.removeItem('santriSession');
+      
       if (sessionTimer) {
         clearInterval(sessionTimer);
         sessionTimer = null;
       }
-      sessionTimeLeft = 15 * 60;
-      authenticatedUser = null;
+      sessionTimeLeft = 60 * 60;
       
       // Reset UI
-      document.getElementById("authSection").style.display = "block";
-      document.getElementById("dashboardContent").style.display = "none";
-      document.getElementById("tunggakanContainer").style.display = "none";
-      document.getElementById("logoutBtn").style.display = "none";
-      document.getElementById("sessionInfo").style.display = "none";
-      document.getElementById("navigation").style.display = "none";
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("dashboardNav").style.display = "none";
       
-      // Reset navigation
-      document.getElementById("dataSantriBtn").classList.add("active");
-      document.getElementById("tunggakanBtn").classList.remove("active");
-      
-      // Clear form
+      // Reset form
       document.getElementById("loginId").value = "";
       document.getElementById("loginPassword").value = "";
-      document.getElementById("authStatus").innerHTML = "";
-      
+      hideMessage();
       resetLoginBtn();
+      
+      // Reset title
+      document.querySelector('.title').textContent = "Dashboard Santri";
+      document.querySelector('.subtitle').textContent = "Sistem Login Secure dengan Session 1 Jam";
+      
+      console.log("Logged out successfully");
     }
     
     // =============================================================================
@@ -773,12 +537,19 @@
         authenticateUser();
       }
     });
-	
-	// MEMBUKA SCRIPT PENCARIAN DATA SANTRI
-	document.getElementById('openPageBtn').addEventListener('click', function() {
-    window.open('https://script.google.com/macros/s/AKfycbwMgBavCx9buIYDfcH-TbUgRBneAw6HvkWLzbvqEwXc8b6_2Ei_qqJ_RSyXrmxOcSA9/exec', '_blank');
-});
-	
+    
+    // Search button
+    document.getElementById('searchBtn').addEventListener('click', function() {
+      window.open(SEARCH_URL, '_blank');
+    });
+    
+    // Prevent form submission
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    });
+    
   </script>
 </body>
 </html>
