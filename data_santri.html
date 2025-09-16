@@ -46,29 +46,33 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     
     .session-timer {
       background: #fff3cd;
       color: #856404;
-      padding: 8px 12px;
+      padding: 6px 10px;
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 11px;
       border: 1px solid #ffeaa7;
     }
     
     .nav-btn {
-      padding: 10px 20px;
+      padding: 8px 15px;
       border: none;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 6px;
+      font-size: 13px;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
       transition: all 0.3s ease;
       color: white;
       font-weight: 600;
+    }
+    
+    .nav-btn.home {
+      background: #28a745;
     }
     
     .nav-btn.active {
@@ -89,10 +93,10 @@
       background: #dc3545;
       color: white;
       border: none;
-      padding: 8px 16px;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       transition: all 0.3s ease;
     }
@@ -287,6 +291,17 @@
       .header-actions {
         flex-wrap: wrap;
         justify-content: center;
+        gap: 6px;
+      }
+      
+      .nav-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      
+      .logout-btn {
+        padding: 6px 10px;
+        font-size: 12px;
       }
       
       .profile-header {
@@ -296,6 +311,18 @@
       
       .data-cards {
         grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .nav-btn, .logout-btn {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -312,8 +339,9 @@
       <div class="session-timer">
         Session: <span id="sessionTimer">60:00</span>
       </div>
+      <button class="nav-btn home" onclick="goToHome()">🏠 Beranda</button>
       <button class="nav-btn active">📊 Data Santri</button>
-      <a href="#" class="nav-btn tunggakan" id="tunggakanBtn">💰 Lihat Tunggakan</a>
+      <a href="#" class="nav-btn tunggakan" id="tunggakanBtn">💰 Tunggakan</a>
       <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
   </div>
@@ -594,6 +622,36 @@
     // =============================================================================
     // NAVIGATION FUNCTIONS
     // =============================================================================
+    
+    function goToHome() {
+      // Cek apakah ada session yang aktif
+      const sessionData = localStorage.getItem('santriSession');
+      
+      if (sessionData) {
+        try {
+          const session = JSON.parse(sessionData);
+          const currentTime = new Date().getTime();
+          const sessionExpiry = new Date(session.expiry).getTime();
+          
+          if (currentTime < sessionExpiry) {
+            // Session masih valid, redirect ke beranda dengan session utuh
+            console.log("Redirecting to home with active session");
+            window.location.href = 'index.html';
+            return;
+          } else {
+            // Session sudah expired, hapus dan redirect
+            localStorage.removeItem('santriSession');
+            console.log("Session expired, redirecting to login");
+          }
+        } catch (error) {
+          console.error('Error checking session:', error);
+          localStorage.removeItem('santriSession');
+        }
+      }
+      
+      // Jika tidak ada session valid, redirect ke login
+      window.location.href = 'index.html';
+    }
     
     function updateTunggakanLink(sessionData) {
       const tunggakanBtn = document.getElementById('tunggakanBtn');
