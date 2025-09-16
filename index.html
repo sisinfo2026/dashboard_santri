@@ -378,7 +378,70 @@
         padding: 6px 12px;
         font-size: 12px;
       }
-      
+      /* User Info Styles */
+.user-info {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 4px solid #667eea;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.info-row:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 14px;
+}
+
+.info-value {
+  font-family: 'Courier New', monospace;
+  background: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #333;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.password-note {
+  margin-top: 15px;
+  padding: 10px;
+  background: #fff3cd;
+  color: #856404;
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid #ffeaa7;
+}
+
+/* Responsive untuk User Info */
+@media (max-width: 480px) {
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .info-value {
+    align-self: stretch;
+    text-align: center;
+  }
+}
+
       .logout-btn {
         padding: 6px 10px;
         font-size: 12px;
@@ -464,37 +527,39 @@
       </div>
       
       <!-- Dashboard Preview (Hidden until authenticated) -->
-      <div id="dashboardPreview" class="dashboard-preview">
-        <div class="dashboard-title">🎯 Dashboard Santri</div>
-        
-        <!-- Dashboard Stats -->
-        <div class="dashboard-stats">
-          <div class="stat-card">
-            <div class="stat-value" id="statDataSantri">✅</div>
-            <div class="stat-label">Data Tersedia</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value" id="statTunggakan">💰</div>
-            <div class="stat-label">Info Tunggakan</div>
-          </div>
-        </div>
-        
-        <!-- Quick Actions -->
-        <div class="quick-actions">
-          <a href="#" class="action-btn data-santri" id="quickDataSantri">
-            📊 Lihat Data Santri
-          </a>
-          <a href="#" class="action-btn tunggakan" id="quickTunggakan">
-            💰 Cek Tunggakan
-          </a>
-        </div>
-        
-        <div class="logout-info">
-          Session akan berakhir dalam <span id="dashboardTimer">60:00</span> menit
-        </div>
-      </div>
+<div id="dashboardPreview" class="dashboard-preview">
+  <div class="dashboard-title">Selamat datang Santri <span id="santriName"></span></div>
+  
+  <!-- User Info -->
+  <div class="user-info">
+    <div class="info-row">
+      <span class="info-label">ID Santri:</span>
+      <span class="info-value" id="santriId"></span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Password:</span>
+      <span class="info-value" id="santriPassword"></span>
+    </div>
+    <div class="password-note">
+      (untuk mengganti password harap hubungi admin)
     </div>
   </div>
+  
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <a href="#" class="action-btn data-santri" id="quickDataSantri">
+      📊 Lihat Data Santri
+    </a>
+    <a href="#" class="action-btn tunggakan" id="quickTunggakan">
+      💰 Cek Tunggakan
+    </a>
+  </div>
+  
+  <div class="logout-info">
+    Session akan berakhir dalam <span id="dashboardTimer">60:00</span> menit
+  </div>
+</div>
+
   
   <script>
     // =============================================================================
@@ -671,27 +736,32 @@
     // =============================================================================
     
     function showDashboard(userData) {
-      // Update header
-      document.getElementById('headerSubtitle').textContent = `Selamat datang, ${userData.nama} | ID: ${userData.id_santri}`;
-      
-      // Show header navigation
-      document.getElementById('sessionTimerContainer').style.display = 'block';
-      document.getElementById('homeBtn').style.display = 'inline-block';
-      document.getElementById('dataSantriLink').style.display = 'inline-block';
-      document.getElementById('tunggakanLink').style.display = 'inline-block';
-      document.getElementById('logoutBtn').style.display = 'inline-block';
-      
-      // Hide login form
-      document.getElementById("loginForm").style.display = "none";
-      
-      // Show dashboard preview
-      document.getElementById("dashboardPreview").style.display = "block";
-      
-      // Update navigation links with session data
-      updateNavigationLinks(userData);
-      
-      console.log("Dashboard displayed for:", userData.nama);
-    }
+  // Update header
+  document.getElementById('headerSubtitle').textContent = `Selamat datang, ${userData.nama} | ID: ${userData.id_santri}`;
+  
+  // Show header navigation
+  document.getElementById('sessionTimerContainer').style.display = 'block';
+  document.getElementById('homeBtn').style.display = 'inline-block';
+  document.getElementById('dataSantriLink').style.display = 'inline-block';
+  document.getElementById('tunggakanLink').style.display = 'inline-block';
+  document.getElementById('logoutBtn').style.display = 'inline-block';
+  
+  // Hide login form
+  document.getElementById("loginForm").style.display = "none";
+  
+  // Show dashboard preview
+  document.getElementById("dashboardPreview").style.display = "block";
+  
+  // Update dashboard content with user data
+  document.getElementById("santriName").textContent = userData.nama;
+  document.getElementById("santriId").textContent = userData.id_santri;
+  document.getElementById("santriPassword").textContent = userData.password;
+  
+  // Update navigation links with session data
+  updateNavigationLinks(userData);
+  
+  console.log("Dashboard displayed for:", userData.nama);
+}
     
     function updateNavigationLinks(userData) {
       const dataSantriLink = document.getElementById("dataSantriLink");
