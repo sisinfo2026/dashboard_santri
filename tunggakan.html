@@ -620,61 +620,7 @@
           const sessionExpiry = new Date(session.expiry).getTime();
           
           if (currentTime < sessionExpiry) {
-            // Session masih valid, redirect ke beranda dengan session utuh
-            console.log("Redirecting to home with active session");
-            window.location.href = 'index.html';
-            return;
-          } else {
-            // Session sudah expired, hapus dan redirect
-            localStorage.removeItem('santriSession');
-            console.log("Session expired, redirecting to login");
-          }
-        } catch (error) {
-          console.error('Error checking session:', error);
-          localStorage.removeItem('santriSession');
-        }
-      }
-      
-      // Jika tidak ada session valid, redirect ke login
-      window.location.replace('index.html');
-    }
-    
-    function updateDataSantriLink(sessionData) {
-      const dataSantriBtn = document.getElementById('dataSantriBtn');
-      
-      const id = sessionData.id || sessionData.userData?.id_santri;
-      const nama = sessionData.nama || sessionData.userData?.nama;
-      
-      if (id) {
-        const sessionParam = `?session=${encodeURIComponent(btoa(JSON.stringify({
-          id: id,
-          nama: nama || 'Unknown',
-          timestamp: Date.now()
-        })))}`;
-        
-        dataSantriBtn.href = `data_santri.html${sessionParam}`;
-      }
-    }
-    
-    function logout() {
-      // Clear session
-      localStorage.removeItem('santriSession');
-      
-      if (sessionTimer) {
-        clearInterval(sessionTimer);
-        sessionTimer = null;
-      }
-      
-      // Reset timer
-      sessionTimeLeft = 0;
-      
-      // Redirect to login (gunakan replace agar tidak bisa back)
-      window.location.replace('index.html');
-    }
-    
-  </script>
-</body>
-</html>d
+            // Session masih valid
             const timeLeft = Math.floor((sessionExpiry - currentTime) / 1000);
             sessionTimeLeft = timeLeft;
             return session;
@@ -904,4 +850,58 @@
           const sessionExpiry = new Date(session.expiry).getTime();
           
           if (currentTime < sessionExpiry) {
-            // Session masih vali
+            // Session masih valid, redirect ke beranda dengan session utuh
+            console.log("Redirecting to home with active session");
+            window.location.href = 'index.html';
+            return;
+          } else {
+            // Session sudah expired, hapus dan redirect
+            localStorage.removeItem('santriSession');
+            console.log("Session expired, redirecting to login");
+          }
+        } catch (error) {
+          console.error('Error checking session:', error);
+          localStorage.removeItem('santriSession');
+        }
+      }
+      
+      // Jika tidak ada session valid, redirect ke login
+      window.location.replace('index.html');
+    }
+    
+    function updateDataSantriLink(sessionData) {
+      const dataSantriBtn = document.getElementById('dataSantriBtn');
+      
+      const id = sessionData.id || sessionData.userData?.id_santri;
+      const nama = sessionData.nama || sessionData.userData?.nama;
+      
+      if (id) {
+        const sessionParam = `?session=${encodeURIComponent(btoa(JSON.stringify({
+          id: id,
+          nama: nama || 'Unknown',
+          timestamp: Date.now()
+        })))}`;
+        
+        dataSantriBtn.href = `data_santri.html${sessionParam}`;
+      }
+    }
+    
+    function logout() {
+      // Clear session
+      localStorage.removeItem('santriSession');
+      
+      if (sessionTimer) {
+        clearInterval(sessionTimer);
+        sessionTimer = null;
+      }
+      
+      // Reset timer
+      sessionTimeLeft = 0;
+      
+      // Redirect to login (gunakan replace agar tidak bisa back)
+      window.location.replace('index.html');
+    }
+    
+  </script>
+</body>
+</html>
