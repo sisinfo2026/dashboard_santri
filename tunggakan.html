@@ -526,76 +526,14 @@
       initializePage();
     });
     
-    // Tambahan: Cek session saat halaman menjadi visible (misal dari tombol back)
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden) {
-        console.log("Page became visible, checking session...");
-        checkSessionAndRedirect();
-      }
-    });
-    
-    // Tambahan: Cek session saat halaman di-focus
-    window.addEventListener('focus', function() {
-      console.log("Page focused, checking session...");
-      checkSessionAndRedirect();
-    });
-    
-    // Tambahan: Cek session secara berkala
-    setInterval(function() {
-      checkSessionAndRedirect();
-    }, 5000); // Cek setiap 5 detik
-    
-    function checkSessionAndRedirect() {
-      const sessionData = localStorage.getItem('santriSession');
-      
-      if (!sessionData) {
-        console.log("No session found, redirecting to login...");
-        window.location.replace('index.html'); // Gunakan replace agar tidak bisa back
-        return false;
-      }
-      
-      try {
-        const session = JSON.parse(sessionData);
-        const currentTime = new Date().getTime();
-        const sessionExpiry = new Date(session.expiry).getTime();
-        
-        if (currentTime >= sessionExpiry) {
-          console.log("Session expired, cleaning up and redirecting...");
-          localStorage.removeItem('santriSession');
-          if (sessionTimer) {
-            clearInterval(sessionTimer);
-            sessionTimer = null;
-          }
-          window.location.replace('index.html'); // Gunakan replace agar tidak bisa back
-          return false;
-        }
-        
-        return true;
-      } catch (error) {
-        console.error('Error parsing session:', error);
-        localStorage.removeItem('santriSession');
-        window.location.replace('index.html'); // Gunakan replace agar tidak bisa back
-        return false;
-      }
-    }
-    
     function initializePage() {
       console.log("Initializing tunggakan.html page");
-      
-      // Check session terlebih dahulu
-      if (!checkSessionAndRedirect()) {
-        return; // Jika session tidak valid, function akan redirect dan berhenti
-      }
       
       // Check session dari localStorage atau URL parameter
       const sessionData = getSessionData();
       
       if (!sessionData) {
         showError("Session tidak valid atau sudah berakhir", "Silakan login ulang untuk mengakses dashboard");
-        // Redirect setelah 2 detik
-        setTimeout(() => {
-          window.location.replace('index.html');
-        }, 2000);
         return;
       }
       
@@ -627,14 +565,10 @@
           } else {
             // Session expired
             localStorage.removeItem('santriSession');
-            window.location.replace('index.html');
-            return null;
           }
         } catch (error) {
           console.error('Error parsing localStorage session:', error);
           localStorage.removeItem('santriSession');
-          window.location.replace('index.html');
-          return null;
         }
       }
       
@@ -647,7 +581,6 @@
           const sessionInfo = JSON.parse(atob(sessionParam));
           console.log("Session from URL:", sessionInfo);
           
-          // Untuk URL parameter, kita perlu fetch data lagi
           return {
             id: sessionInfo.id,
             nama: sessionInfo.nama,
@@ -655,13 +588,9 @@
           };
         } catch (error) {
           console.error('Error parsing URL session:', error);
-          window.location.replace('index.html');
-          return null;
         }
       }
       
-      // Jika tidak ada session sama sekali, redirect
-      window.location.replace('index.html');
       return null;
     }
     
@@ -711,10 +640,6 @@
       } catch (error) {
         console.error('Error loading tunggakan data:', error);
         showError("Gagal memuat data tunggakan", error.message);
-        // Redirect ke login setelah 3 detik jika error
-        setTimeout(() => {
-          window.location.replace('index.html');
-        }, 3000);
       }
     }
     
@@ -836,12 +761,65 @@
     // =============================================================================
     
     function goToHome() {
-      // Cek session sebelum redirect
-      if (!checkSessionAndRedirect()) {
-        return;
-      }
-      
       // Cek apakah ada session yang aktif
       const sessionData = localStorage.getItem('santriSession');
       
-      if (
+      if (sessionData) {
+        try {
+          const session = JSON.parse(sessionData);
+          const currentTime = new Date().getTime();
+          const sessionExpiry = new Date(session.expiry).getTime();
+          
+          if (currentTime < sessionExpiry) {
+            // Session masih valid, redirect ke beranda dengan session utuh
+            console.log("Redirecting to home with active session");
+            window.location.href = 'index.html';
+            return;
+          } else {
+            // Session sudah expired, hapus dan redirect
+            localStorage.removeItem('santriSession');
+            console.log("Session expired, redirecting to login");
+          }
+        } catch (error) {
+          console.error('Error checking session:', error);
+          localStorage.removeItem('santriSession');
+        }
+      }
+      
+      // Jika tidak ada session valid, redirect ke login
+      window.location.href = 'index.html';
+    }
+    
+    function updateDataSantriLink(sessionData) {
+      const dataSantriBtn = document.getElementById('dataSantriBtn');
+      
+      const id = sessionData.id || sessionData.userData?.id_santri;
+      const nama = sessionData.nama || sessionData.userData?.nama;
+      
+      if (id) {
+        const sessionParam = `?session=${encodeURIComponent(btoa(JSON.stringify({
+          id: id,
+          nama: nama || 'Unknown',
+          timestamp: Date.now()
+        })))}`;
+        
+        dataSantriBtn.href = `data_santri.html${sessionParam}`;
+      }
+    }
+    
+    function logout() {
+      // Clear session
+      localStorage.removeItem('santriSession');
+      
+      if (sessionTimer) {
+        clearInterval(sessionTimer);
+        sessionTimer = null;
+      }
+      
+      // Redirect to login
+      window.location.href = 'index.html';
+    }
+    
+  </script>
+</body>
+</html>
