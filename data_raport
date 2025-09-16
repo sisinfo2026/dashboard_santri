@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Data Raport</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 24px; background:#f7f9fc; color:#111; }
+    .card { background:white; padding:18px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.06); max-width:900px; margin:auto; }
+    h1{ font-size:20px; margin:0 0 12px 0 }
+    table{ width:100%; border-collapse:collapse; margin-top:12px }
+    th, td{ padding:8px 10px; border:1px solid #e6eaf0; text-align:left; }
+    th{ background:#f0f4f8; }
+    .center{ text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Data Raport Siswa</h1>
+    <p>Contoh tabel raport — ganti sesuai data riil.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="center">No</th>
+          <th>Nama</th>
+          <th>Kelas</th>
+          <th>Matematika</th>
+          <th>Bahasa Indonesia</th>
+          <th>IPA</th>
+          <th>Rata-rata</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="center">1</td>
+          <td>Asep</td>
+          <td>7A</td>
+          <td class="center">85</td>
+          <td class="center">88</td>
+          <td class="center">80</td>
+          <td class="center">84.3</td>
+        </tr>
+        <tr>
+          <td class="center">2</td>
+          <td>Siti</td>
+          <td>7A</td>
+          <td class="center">90</td>
+          <td class="center">92</td>
+          <td class="center">89</td>
+          <td class="center">90.3</td>
+        </tr>
+        <!-- Tambah baris sesuai kebutuhan -->
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
