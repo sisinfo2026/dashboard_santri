@@ -11,8 +11,117 @@
       padding: 0;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+    }
+    
+    /* Header Style - Sama dengan data_santri.html */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      padding: 20px 30px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 1200px;
+      box-sizing: border-box;
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .header-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .header-subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-top: 2px;
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .session-timer {
+      background: #fff3cd;
+      color: #856404;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      border: 1px solid #ffeaa7;
+    }
+    
+    .nav-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      color: white;
+      font-weight: 600;
+    }
+    
+    .nav-btn.home {
+      background: #28a745;
+    }
+    
+    .nav-btn.data-santri {
+      background: #0d6efd;
+    }
+    
+    .nav-btn.tunggakan {
+      background: #fd7e14;
+    }
+    
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    
+    .logout-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .logout-btn:hover {
+      background: #c82333;
+      transform: translateY(-1px);
+    }
+    
+    .main-content {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      padding: 0 20px;
+      box-sizing: border-box;
     }
     
     .login-container {
@@ -22,7 +131,7 @@
       box-shadow: 0 15px 35px rgba(0,0,0,0.1);
       backdrop-filter: blur(10px);
       max-width: 400px;
-      width: 90%;
+      width: 100%;
       text-align: center;
     }
     
@@ -161,7 +270,7 @@
       display: none;
     }
     
-    .navigation-preview {
+    .dashboard-preview {
       margin-top: 25px;
       padding: 20px;
       background: #f8f9fa;
@@ -169,40 +278,73 @@
       display: none;
     }
     
-    .nav-title {
-      font-size: 16px;
+    .dashboard-title {
+      font-size: 18px;
       font-weight: 600;
       color: #333;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      text-align: center;
     }
     
-    .nav-buttons {
-      display: flex;
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .stat-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      justify-content: center;
+      margin-top: 20px;
     }
     
-    .nav-btn {
-      padding: 10px 20px;
+    .action-btn {
+      padding: 12px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       transition: all 0.3s ease;
       color: white;
     }
     
-    .nav-btn.data-santri {
+    .action-btn.data-santri {
       background: #0d6efd;
     }
     
-    .nav-btn.tunggakan {
+    .action-btn.tunggakan {
       background: #fd7e14;
     }
     
-    .nav-btn:hover {
+    .action-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
@@ -211,77 +353,145 @@
       margin-top: 15px;
       font-size: 12px;
       color: #666;
+      text-align: center;
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      .header-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+      }
+      
+      .nav-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      
+      .logout-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+      
       .login-container {
         padding: 30px 20px;
       }
       
-      .nav-buttons {
-        flex-direction: column;
+      .dashboard-stats {
+        grid-template-columns: 1fr;
       }
       
-      .nav-btn {
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header-actions {
+        flex-direction: column;
         width: 100%;
+      }
+      
+      .nav-btn, .logout-btn {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="logo">🔒</div>
-    <div class="title">Dashboard Santri</div>
-    <div class="subtitle">Sistem Login Secure dengan Session 1 Jam</div>
-    
-    <!-- GANTI bagian form yang lama dengan struktur ini -->
-
-<!-- Login Form -->
-<div id="loginForm">
-  <!-- Wrap kedua form-group dalam form-row -->
-  <div class="form-row">
-    <!-- Input ID Santri -->
-    <div class="form-group">
-      <label for="loginId">ID Santri (9 digit)</label>
-      <div class="input-container">
-        <input type="text" id="loginId" placeholder="Contoh: 123456789" maxlength="9" pattern="\d{9}" />
-        <button type="button" class="search-btn" id="searchBtn" title="Cari ID Santri">🔗</button>
+  <!-- Header - Konsisten dengan data_santri.html -->
+  <div class="header">
+    <div class="header-left">
+      <div>
+        <div class="header-title">🏠 Dashboard Santri</div>
+        <div class="header-subtitle" id="headerSubtitle">Sistem Login Secure dengan Session 1 Jam</div>
       </div>
     </div>
-    
-    <!-- Input Password -->
-    <div class="form-group">
-      <label for="loginPassword">Password (9 digit)</label>
-      <div class="input-container">
-        <input type="password" id="loginPassword" placeholder="9 digit password" maxlength="9" pattern="\d{9}">
+    <div class="header-actions">
+      <div class="session-timer" id="sessionTimerContainer" style="display: none;">
+        Session: <span id="sessionTimer">60:00</span>
       </div>
+      <button class="nav-btn home" id="homeBtn" style="display: none;" onclick="showDashboard()">🏠 Beranda</button>
+      <a href="#" class="nav-btn data-santri" id="dataSantriLink" style="display: none;">📊 Data Santri</a>
+      <a href="#" class="nav-btn tunggakan" id="tunggakanLink" style="display: none;">💰 Tunggakan</a>
+      <button class="logout-btn" id="logoutBtn" style="display: none;" onclick="logout()">Logout</button>
     </div>
   </div>
   
-  <button onclick="authenticateUser()" id="loginBtn" class="login-btn">
-    🔑 Login ke Dashboard
-  </button>
-  
-  <div id="statusMessage" class="status-message"></div>
-  <div id="sessionInfo" class="session-info">
-    Session aktif selama 1 jam setelah login berhasil
-  </div>
-</div>
-    
-    <!-- Navigation Dashboard (Hidden until authenticated) -->
-    <div id="dashboardNav" class="navigation-preview">
-      <div class="nav-title">Dashboard Menu</div>
-      <div class="nav-buttons">
-        <a href="data_santri.html" class="nav-btn data-santri" id="dataSantriLink">
-          📊 Data Santri
-        </a>
-        <a href="tunggakan.html" class="nav-btn tunggakan" id="tunggakanLink">
-          💰 Lihat Tunggakan
-        </a>
+  <div class="main-content">
+    <div class="login-container">
+      <!-- Login Form -->
+      <div id="loginForm">
+        <div class="logo">🔒</div>
+        <div class="title">Dashboard Santri</div>
+        <div class="subtitle">Sistem Login Secure dengan Session 1 Jam</div>
+        
+        <div class="form-group">
+          <label for="loginId">ID Santri (9 digit)</label>
+          <div class="input-container">
+            <input type="text" id="loginId" placeholder="Contoh: 123456789" maxlength="9" pattern="\d{9}" />
+            <button type="button" class="search-btn" id="searchBtn" title="Cari ID Santri">🔗</button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="loginPassword">Password (9 digit)</label>
+          <div class="input-container">
+            <input type="password" id="loginPassword" placeholder="9 digit password" maxlength="9" pattern="\d{9}">
+          </div>
+        </div>
+        
+        <button onclick="authenticateUser()" id="loginBtn" class="login-btn">
+          🔑 Login ke Dashboard
+        </button>
+        
+        <div id="statusMessage" class="status-message"></div>
+        <div id="sessionInfo" class="session-info">
+          Session aktif selama 1 jam setelah login berhasil
+        </div>
       </div>
-      <div class="logout-info">
-        Session akan berakhir dalam <span id="sessionTimer">60:00</span> menit
-        <br><button onclick="logout()" style="margin-top: 10px; padding: 5px 10px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
+      
+      <!-- Dashboard Preview (Hidden until authenticated) -->
+      <div id="dashboardPreview" class="dashboard-preview">
+        <div class="dashboard-title">🎯 Dashboard Santri</div>
+        
+        <!-- Dashboard Stats -->
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="statDataSantri">✅</div>
+            <div class="stat-label">Data Tersedia</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statTunggakan">💰</div>
+            <div class="stat-label">Info Tunggakan</div>
+          </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <a href="#" class="action-btn data-santri" id="quickDataSantri">
+            📊 Lihat Data Santri
+          </a>
+          <a href="#" class="action-btn tunggakan" id="quickTunggakan">
+            💰 Cek Tunggakan
+          </a>
+        </div>
+        
+        <div class="logout-info">
+          Session akan berakhir dalam <span id="dashboardTimer">60:00</span> menit
+        </div>
       </div>
     </div>
   </div>
@@ -319,7 +529,7 @@
             console.log("Session found and valid");
             const timeLeft = Math.floor((sessionExpiry - currentTime) / 1000);
             sessionTimeLeft = timeLeft;
-            showDashboardNavigation(session.userData);
+            showDashboard(session.userData);
             startSessionTimer();
             return;
           } else {
@@ -350,6 +560,7 @@
     
     function startSessionTimer() {
       const timerElement = document.getElementById('sessionTimer');
+      const dashboardTimerElement = document.getElementById('dashboardTimer');
       
       sessionTimer = setInterval(() => {
         sessionTimeLeft--;
@@ -362,6 +573,9 @@
         
         if (timerElement) {
           timerElement.textContent = timeString;
+        }
+        if (dashboardTimerElement) {
+          dashboardTimerElement.textContent = timeString;
         }
         
         if (sessionTimeLeft <= 0) {
@@ -430,9 +644,9 @@
             // Reset session timer
             sessionTimeLeft = 60 * 60;
             
-            // Show dashboard navigation after delay
+            // Show dashboard after delay
             setTimeout(() => {
-              showDashboardNavigation(result.data);
+              showDashboard(result.data);
               startSessionTimer();
             }, 1500);
             
@@ -456,24 +670,34 @@
     // UI FUNCTIONS
     // =============================================================================
     
-    function showDashboardNavigation(userData) {
+    function showDashboard(userData) {
+      // Update header
+      document.getElementById('headerSubtitle').textContent = `Selamat datang, ${userData.nama} | ID: ${userData.id_santri}`;
+      
+      // Show header navigation
+      document.getElementById('sessionTimerContainer').style.display = 'block';
+      document.getElementById('homeBtn').style.display = 'inline-block';
+      document.getElementById('dataSantriLink').style.display = 'inline-block';
+      document.getElementById('tunggakanLink').style.display = 'inline-block';
+      document.getElementById('logoutBtn').style.display = 'inline-block';
+      
       // Hide login form
       document.getElementById("loginForm").style.display = "none";
       
-      // Show dashboard navigation
-      document.getElementById("dashboardNav").style.display = "block";
-      
-      // Update page title
-      document.querySelector('.title').textContent = `Dashboard - ${userData.nama}`;
-      document.querySelector('.subtitle').textContent = `ID: ${userData.id_santri} | Session aktif`;
+      // Show dashboard preview
+      document.getElementById("dashboardPreview").style.display = "block";
       
       // Update navigation links with session data
       updateNavigationLinks(userData);
+      
+      console.log("Dashboard displayed for:", userData.nama);
     }
     
     function updateNavigationLinks(userData) {
       const dataSantriLink = document.getElementById("dataSantriLink");
       const tunggakanLink = document.getElementById("tunggakanLink");
+      const quickDataSantri = document.getElementById("quickDataSantri");
+      const quickTunggakan = document.getElementById("quickTunggakan");
       
       // Add session parameter to links
       const sessionParam = `?session=${encodeURIComponent(btoa(JSON.stringify({
@@ -484,6 +708,8 @@
       
       dataSantriLink.href = `data_santri.html${sessionParam}`;
       tunggakanLink.href = `tunggakan.html${sessionParam}`;
+      quickDataSantri.href = `data_santri.html${sessionParam}`;
+      quickTunggakan.href = `tunggakan.html${sessionParam}`;
     }
     
     function showMessage(text, type) {
@@ -513,9 +739,16 @@
       }
       sessionTimeLeft = 60 * 60;
       
+      // Hide header navigation
+      document.getElementById('sessionTimerContainer').style.display = 'none';
+      document.getElementById('homeBtn').style.display = 'none';
+      document.getElementById('dataSantriLink').style.display = 'none';
+      document.getElementById('tunggakanLink').style.display = 'none';
+      document.getElementById('logoutBtn').style.display = 'none';
+      
       // Reset UI
       document.getElementById("loginForm").style.display = "block";
-      document.getElementById("dashboardNav").style.display = "none";
+      document.getElementById("dashboardPreview").style.display = "none";
       
       // Reset form
       document.getElementById("loginId").value = "";
@@ -523,9 +756,8 @@
       hideMessage();
       resetLoginBtn();
       
-      // Reset title
-      document.querySelector('.title').textContent = "Dashboard Santri";
-      document.querySelector('.subtitle').textContent = "Sistem Login Secure dengan Session 1 Jam";
+      // Reset header
+      document.getElementById('headerSubtitle').textContent = "Sistem Login Secure dengan Session 1 Jam";
       
       console.log("Logged out successfully");
     }
