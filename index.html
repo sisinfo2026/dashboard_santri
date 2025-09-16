@@ -312,43 +312,7 @@
       font-size: 12px;
       color: #666;
     }
-    
-    .quick-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    
-    .action-btn {
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-      color: white;
-    }
-    
-    .action-btn.data-santri {
-      background: #0d6efd;
-    }
-    
-    .action-btn.tunggakan {
-      background: #fd7e14;
-    }
-    
-    .action-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
+        
     .logout-info {
       margin-top: 15px;
       font-size: 12px;
@@ -453,11 +417,7 @@
       
       .dashboard-stats {
         grid-template-columns: 1fr;
-      }
-      
-      .quick-actions {
-        grid-template-columns: 1fr;
-      }
+      }      
     }
     
     @media (max-width: 480px) {
@@ -543,16 +503,6 @@
     <div class="password-note">
       (untuk mengganti password harap hubungi admin)
     </div>
-  </div>
-  
-  <!-- Quick Actions -->
-  <div class="quick-actions">
-    <a href="#" class="action-btn data-santri" id="quickDataSantri">
-      📊 Lihat Data Santri
-    </a>
-    <a href="#" class="action-btn tunggakan" id="quickTunggakan">
-      💰 Cek Tunggakan
-    </a>
   </div>
   
   <div class="logout-info">
@@ -757,9 +707,6 @@
   document.getElementById("santriId").textContent = userData.id_santri;
   document.getElementById("santriPassword").textContent = userData.password;
   
-  // Update navigation links with session data
-  updateNavigationLinks(userData);
-  
   console.log("Dashboard displayed for:", userData.nama);
 }
     
@@ -778,8 +725,6 @@
       
       dataSantriLink.href = `data_santri.html${sessionParam}`;
       tunggakanLink.href = `tunggakan.html${sessionParam}`;
-      quickDataSantri.href = `data_santri.html${sessionParam}`;
-      quickTunggakan.href = `tunggakan.html${sessionParam}`;
     }
     
     function showMessage(text, type) {
