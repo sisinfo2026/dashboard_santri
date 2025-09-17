@@ -2,81 +2,105 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Dashboard Santri - Login</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       margin: 0;
-      padding: 20px;
+      padding: 15px 10px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
+      line-height: 1.4;
     }
     
-    /* Header Style - Sama dengan data_santri.html dan tunggakan.html */
+    /* Header Style - Mobile First */
     .header {
       background: rgba(255, 255, 255, 0.95);
       color: #333;
-      padding: 20px 30px;
-      border-radius: 15px;
-      margin-bottom: 20px;
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       backdrop-filter: blur(10px);
       width: 100%;
-      max-width: 1200px;
-      box-sizing: border-box;
+      max-width: 100%;
+      text-align: center;
     }
     
     .header-left {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 5px;
     }
     
     .header-title {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: bold;
       color: #333;
+      line-height: 1.2;
     }
     
     .header-subtitle {
-      font-size: 14px;
+      font-size: 12px;
       color: #666;
       margin-top: 2px;
+      line-height: 1.3;
     }
     
     .header-actions {
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 8px;
+      width: 100%;
     }
     
     .session-timer {
       background: #fff3cd;
       color: #856404;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 6px;
       font-size: 11px;
       border: 1px solid #ffeaa7;
+      font-weight: 500;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      width: 100%;
     }
     
     .nav-btn {
-      padding: 8px 15px;
+      padding: 8px 12px;
       border: none;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
       transition: all 0.3s ease;
       color: white;
       font-weight: 600;
+      text-align: center;
+      min-width: 80px;
+      flex: 1;
+      max-width: 120px;
     }
     
     .nav-btn.home {
@@ -92,20 +116,22 @@
     }
     
     .nav-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     }
     
     .logout-btn {
       background: #dc3545;
       color: white;
       border: none;
-      padding: 6px 12px;
+      padding: 8px 16px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       transition: all 0.3s ease;
+      margin-top: 5px;
+      min-width: 100px;
     }
     
     .logout-btn:hover {
@@ -115,54 +141,56 @@
     
     .main-content {
       width: 100%;
-      max-width: 1200px;
+      max-width: 400px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-grow: 1;
-      padding: 0 20px;
-      box-sizing: border-box;
+      padding: 0 10px;
     }
     
     .login-container {
       background: rgba(255, 255, 255, 0.95);
-      padding: 30px;           /* 40px * 0.75 = 30px */
-      border-radius: 15px;     /* 20px * 0.75 = 15px */
-      box-shadow: 0 11px 26px rgba(0,0,0,0.1);  /* 15px * 0.75 = 11px, 35px * 0.75 = 26px */
+      padding: 25px 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
       backdrop-filter: blur(10px);
-      max-width: 300px;        /* 400px * 0.75 = 300px */
       width: 100%;
+      max-width: 100%;
       text-align: center;
     }
     
     .logo {
-      font-size: 36px;         /* 48px * 0.75 = 36px */
-      margin-bottom: 8px;      /* 10px * 0.75 = 7.5px ≈ 8px */
+      font-size: 32px;
+      margin-bottom: 8px;
     }
     
     .title {
-      font-size: 21px;         /* 28px * 0.75 = 21px */
+      font-size: 22px;
       font-weight: bold;
       color: #333;
-      margin-bottom: 8px;      /* 10px * 0.75 = 7.5px ≈ 8px */
+      margin-bottom: 8px;
+      line-height: 1.2;
     }
     
     .subtitle {
       color: #666;
-      font-size: 11px;         /* 14px * 0.75 = 10.5px ≈ 11px */
-      margin-bottom: 23px;     /* 30px * 0.75 = 22.5px ≈ 23px */
+      font-size: 12px;
+      margin-bottom: 25px;
+      line-height: 1.3;
     }
     
     .form-group {
-      margin-bottom: 15px;     /* 20px * 0.75 = 15px */
+      margin-bottom: 18px;
       text-align: left;
     }
     
     .form-group label {
       display: block;
-      margin-bottom: 6px;      /* 8px * 0.75 = 6px */
+      margin-bottom: 8px;
       color: #333;
       font-weight: 600;
+      font-size: 14px;
     }
     
     .input-container {
@@ -173,30 +201,33 @@
     
     .input-container input {
       width: 100%;
-      padding: 9px 12px;       /* 12px * 0.75 = 9px, 16px * 0.75 = 12px */
+      padding: 12px 45px 12px 15px;
       border: 2px solid #e1e5e9;
-      border-radius: 6px;      /* 8px * 0.75 = 6px */
-      font-size: 12px;         /* 16px * 0.75 = 12px */
+      border-radius: 8px;
+      font-size: 16px;
       transition: border-color 0.3s ease;
-      box-sizing: border-box;
+      background: #fff;
+      -webkit-appearance: none;
+      appearance: none;
     }
     
     .input-container input:focus {
       outline: none;
       border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
     
     .search-btn {
       position: absolute;
-      right: 6px;              /* 8px * 0.75 = 6px */
-      width: 24px;             /* 32px * 0.75 = 24px */
-      height: 24px;            /* 32px * 0.75 = 24px */
+      right: 8px;
+      width: 32px;
+      height: 32px;
       background: #667eea;
       color: white;
       border: none;
-      border-radius: 5px;      /* 6px * 0.75 = 4.5px ≈ 5px */
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 11px;         /* 14px * 0.75 = 10.5px ≈ 11px */
+      font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -209,16 +240,16 @@
     
     .login-btn {
       width: 100%;
-      padding: 11px;           /* 14px * 0.75 = 10.5px ≈ 11px */
+      padding: 14px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border: none;
-      border-radius: 6px;      /* 8px * 0.75 = 6px */
-      font-size: 12px;         /* 16px * 0.75 = 12px */
+      border-radius: 8px;
+      font-size: 16px;
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.2s ease;
-      margin-top: 8px;         /* 10px * 0.75 = 7.5px ≈ 8px */
+      margin-top: 10px;
     }
     
     .login-btn:hover:not(:disabled) {
@@ -232,11 +263,12 @@
     }
     
     .status-message {
-      margin-top: 11px;        /* 15px * 0.75 = 11.25px ≈ 11px */
-      padding: 9px;            /* 12px * 0.75 = 9px */
-      border-radius: 5px;      /* 6px * 0.75 = 4.5px ≈ 5px */
-      font-size: 11px;         /* 14px * 0.75 = 10.5px ≈ 11px */
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 13px;
       display: none;
+      line-height: 1.4;
     }
     
     .status-message.error {
@@ -263,11 +295,12 @@
     .session-info {
       background: #fff3cd;
       color: #856404;
-      padding: 8px;            /* 10px * 0.75 = 7.5px ≈ 8px */
-      border-radius: 5px;      /* 6px * 0.75 = 4.5px ≈ 5px */
-      font-size: 9px;          /* 12px * 0.75 = 9px */
-      margin-top: 11px;        /* 15px * 0.75 = 11.25px ≈ 11px */
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      margin-top: 15px;
       display: none;
+      line-height: 1.3;
     }
     
     .dashboard-preview {
@@ -284,12 +317,13 @@
       color: #333;
       margin-bottom: 20px;
       text-align: center;
+      line-height: 1.3;
     }
     
     /* User Info Styles */
     .user-info {
       background: #f8f9fa;
-      padding: 20px;
+      padding: 20px 15px;
       border-radius: 10px;
       margin-bottom: 20px;
       border-left: 4px solid #667eea;
@@ -297,10 +331,10 @@
 
     .info-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      padding: 8px 0;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 15px;
+      padding: 10px 0;
       border-bottom: 1px solid #e9ecef;
     }
 
@@ -318,92 +352,172 @@
     .info-value {
       font-family: 'Courier New', monospace;
       background: #e9ecef;
-      padding: 4px 8px;
-      border-radius: 4px;
+      padding: 8px 12px;
+      border-radius: 6px;
       color: #333;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: bold;
+      text-align: center;
+      word-break: break-all;
     }
 
     .password-note {
       margin-top: 15px;
-      padding: 10px;
+      padding: 12px;
       background: #fff3cd;
       color: #856404;
       border-radius: 6px;
-      font-size: 9px;
-      font-family: Arial, sans-serif;
+      font-size: 11px;
       text-align: center;
       border: 1px solid #ffeaa7;
+      line-height: 1.4;
     }
     
     .logout-info {
       margin-top: 15px;
-      font-size: 12px;
+      font-size: 13px;
       color: #666;
       text-align: center;
+      line-height: 1.4;
     }
     
-    @media (max-width: 768px) {
+    /* Tablet Styles */
+    @media (min-width: 768px) {
       body {
-        padding: 10px;
+        padding: 20px;
       }
       
       .header {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        padding: 20px 30px;
+        max-width: 1200px;
+      }
+      
+      .header-left {
+        flex-direction: row;
+        align-items: center;
         gap: 15px;
-        text-align: center;
-        margin-bottom: 10px;
+      }
+      
+      .header-title {
+        font-size: 24px;
+      }
+      
+      .header-subtitle {
+        font-size: 14px;
       }
       
       .header-actions {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 6px;
+        flex-direction: row;
+        width: auto;
+      }
+      
+      .nav-buttons {
+        flex-direction: row;
       }
       
       .nav-btn {
-        padding: 6px 12px;
-        font-size: 12px;
+        font-size: 13px;
+        padding: 8px 15px;
+        flex: none;
+        max-width: none;
+        min-width: auto;
       }
       
       .logout-btn {
-        padding: 6px 10px;
-        font-size: 12px;
+        margin-top: 0;
+        padding: 6px 12px;
+        font-size: 13px;
+      }
+      
+      .main-content {
+        max-width: 1200px;
+        padding: 0 20px;
       }
       
       .login-container {
-        padding: 23px 15px;     /* 30px * 0.75 = 22.5px ≈ 23px, 20px * 0.75 = 15px */
-      }
-    }
-    
-    /* Responsive untuk User Info */
-    @media (max-width: 480px) {
-      .header-actions {
-        flex-direction: column;
-        width: 100%;
-      }
-      
-      .nav-btn, .logout-btn {
-        width: 100%;
-        text-align: center;
+        max-width: 400px;
+        padding: 30px;
       }
       
       .info-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
       }
       
       .info-value {
-        align-self: stretch;
-        text-align: center;
+        text-align: right;
+        flex-shrink: 0;
+        word-break: normal;
+      }
+    }
+    
+    /* Desktop Styles */
+    @media (min-width: 1024px) {
+      .title {
+        font-size: 24px;
+      }
+      
+      .subtitle {
+        font-size: 14px;
+      }
+      
+      .login-container {
+        padding: 40px;
+      }
+    }
+    
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .nav-btn, .logout-btn, .search-btn, .login-btn {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      .input-container input {
+        font-size: 16px;
+        padding: 14px 50px 14px 15px;
+      }
+      
+      .login-btn {
+        padding: 16px;
+        font-size: 16px;
+      }
+    }
+    
+    /* Accessibility improvements */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      .header {
+        border: 2px solid #000;
+      }
+      
+      .login-container {
+        border: 2px solid #000;
+      }
+      
+      .input-container input {
+        border: 2px solid #000;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header - Konsisten dengan data_santri.html dan tunggakan.html -->
+  <!-- Header - Mobile Optimized -->
   <div class="header">
     <div class="header-left">
       <div>
@@ -415,9 +529,11 @@
       <div class="session-timer" id="sessionTimerContainer" style="display: none;">
         Session: <span id="sessionTimer">60:00</span>
       </div>
-      <button class="nav-btn home" id="homeBtn" style="display: none;" onclick="showDashboard()">🏠 Beranda</button>
-      <a href="#" class="nav-btn data-santri" id="dataSantriLink" style="display: none;">📊 Data Santri</a>
-      <a href="#" class="nav-btn tunggakan" id="tunggakanLink" style="display: none;">💰 Tunggakan</a>
+      <div class="nav-buttons">
+        <button class="nav-btn home" id="homeBtn" style="display: none;" onclick="showDashboard()">🏠 Beranda</button>
+        <a href="#" class="nav-btn data-santri" id="dataSantriLink" style="display: none;">📊 Data Santri</a>
+        <a href="#" class="nav-btn tunggakan" id="tunggakanLink" style="display: none;">💰 Tunggakan</a>
+      </div>
       <button class="logout-btn" id="logoutBtn" style="display: none;" onclick="logout()">Logout</button>
     </div>
   </div>
@@ -433,15 +549,15 @@
         <div class="form-group">
           <label for="loginId">ID Santri (9 digit)</label>
           <div class="input-container">
-            <input type="text" id="loginId" placeholder="Contoh: 123456789" maxlength="9" pattern="\d{9}" />
-            <button type="button" class="search-btn" id="searchBtn" title="Cari ID Santri">🔗</button>
+            <input type="text" id="loginId" placeholder="Contoh: 123456789" maxlength="9" pattern="\d{9}" inputmode="numeric" />
+            <button type="button" class="search-btn" id="searchBtn" title="Cari ID Santri" aria-label="Cari ID Santri">🔗</button>
           </div>
         </div>
         
         <div class="form-group">
           <label for="loginPassword">Password (9 digit)</label>
           <div class="input-container">
-            <input type="password" id="loginPassword" placeholder="9 digit password" maxlength="9" pattern="\d{9}">
+            <input type="password" id="loginPassword" placeholder="9 digit password" maxlength="9" pattern="\d{9}" inputmode="numeric">
           </div>
         </div>
         
@@ -449,7 +565,7 @@
           🔑 Login ke Dashboard
         </button>
         
-        <div id="statusMessage" class="status-message"></div>
+        <div id="statusMessage" class="status-message" role="alert" aria-live="polite"></div>
         <div id="sessionInfo" class="session-info">
           Session aktif selama 1 jam setelah login berhasil
         </div>
